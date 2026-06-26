@@ -244,7 +244,7 @@ export default function StudioPage() {
   };
 
   return (
-    <div className="flex-1 flex flex-col md:flex-row md:overflow-hidden overflow-y-auto bg-zinc-950 text-zinc-100 font-sans">
+    <div className="flex-1 flex flex-col md:flex-row md:overflow-hidden overflow-y-auto bg-bg-page text-zinc-100 font-sans">
       {/* ─── LEFT PANEL: STUDIO OPTIONS ────────────────────────────────────────── */}
       <div className="w-full md:w-[420px] border-r border-zinc-700 bg-zinc-900/60 flex flex-col md:overflow-y-auto overflow-visible flex-shrink-0">
         <div className="p-5 border-b border-zinc-700 flex-shrink-0 bg-zinc-900/80">
