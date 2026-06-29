@@ -13,6 +13,8 @@
 
 > 🎨 **[Explore 50+ more open-source AI apps →](https://github.com/Anil-matcha/awesome-generative-ai-apps)**
 
+https://github.com/user-attachments/assets/d08bd94b-2efd-4529-bd14-c8e97c87f959
+
 ## 🌐 Project Details
 
 **GitHub Repository:** [github.com/SamurAIGPT/ai-tryon](https://github.com/SamurAIGPT/ai-tryon)
