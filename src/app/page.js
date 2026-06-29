@@ -192,12 +192,9 @@ export default function StudioPage() {
 
   const pollTryOnResult = async (id) => {
     let completed = false;
-    let attempts = 0;
-    const maxAttempts = 20;
 
-    while (!completed && attempts < maxAttempts) {
+    while (!completed) {
       await new Promise((resolve) => setTimeout(resolve, 2500));
-      attempts++;
 
       try {
         const res = await fetch(`/api/tryons?id=${id}`);
@@ -217,11 +214,6 @@ export default function StudioPage() {
       } catch (err) {
         console.error("Error polling database status:", err);
       }
-    }
-
-    if (!completed) {
-      setGeneratingError("Generation is taking longer than expected. It will complete in the background and show in your gallery.");
-      setGeneratingStatus("error");
     }
   };
 
