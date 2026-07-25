@@ -28,16 +28,23 @@ export async function POST(req) {
     const cleanPrompt = prompt || "Generate a photorealistic virtual try-on where the person is wearing the clothes in the provided clothes photo.";
     const cleanAspectRatio = aspectRatio || "auto";
 
-    // 1. Deduct 18 credits
-    const cost = config.ai.generationCost || 18;
-    try {
-      await UserService.deductCredits(session.user.id, cost);
-    } catch (err) {
-      return new NextResponse("Insufficient credits", { status: 402 });
+    const headerApiKey = req.headers.get("x-custom-api-key");
+    const customApiKey = headerApiKey || body.customApiKey || session.user.customApiKey || null;
+    const isUsingCustomKey = Boolean(customApiKey && customApiKey.trim().length > 0);
+
+    // Deduct 18 credits (0 if custom API key active)
+    const cost = isUsingCustomKey ? 0 : (config.ai.generationCost || 18);
+
+    if (!isUsingCustomKey && cost > 0) {
+      try {
+        await UserService.deductCredits(session.user.id, cost);
+      } catch (err) {
+        return new NextResponse("Insufficient credits", { status: 402 });
+      }
     }
 
-    // 2. Submit prediction
-    const apiKey = config.ai.apiKey;
+    // Submit prediction
+    const apiKey = isUsingCustomKey ? customApiKey.trim() : config.ai.apiKey;
     let resultImage = "";
     let requestId = `mock_${Date.now()}`;
     let status = "processing";
@@ -113,13 +120,12 @@ export async function POST(req) {
       }
     } else {
       // Mock mode
-      // Wait 3 seconds to simulate AI delay
       await new Promise(resolve => setTimeout(resolve, 3000));
       resultImage = FALLBACK_TRYONS[Math.floor(Math.random() * FALLBACK_TRYONS.length)];
       status = "completed";
     }
 
-    // 3. Save DB record
+    // Save DB record
     const tryon = await prisma.tryOn.create({
       data: {
         userId: session.user.id,

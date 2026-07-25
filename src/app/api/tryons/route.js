@@ -14,7 +14,9 @@ export async function GET(req) {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
 
-    const apiKey = config.ai.apiKey;
+    const headerApiKey = req.headers.get("x-custom-api-key");
+    const customApiKey = headerApiKey || session.user.customApiKey || null;
+    const apiKey = (customApiKey && customApiKey.trim().length > 0) ? customApiKey.trim() : config.ai.apiKey;
     const hasApiKey = apiKey && !apiKey.includes("your_") && apiKey.trim() !== "";
 
     if (id) {
