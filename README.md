@@ -15,6 +15,11 @@
 
 https://github.com/user-attachments/assets/d08bd94b-2efd-4529-bd14-c8e97c87f959
 
+## Related Projects
+
+- [MuAPI Virtual Try-On API](https://muapi.ai/virtual-try-on-api) — Use MuAPI's unified REST endpoint for garment-on-person generation and e-commerce fit visualization.
+- [MuAPI specialized apps](https://muapi.ai/docs/specialized-apps) — Browse image-transformation workflows and integration guidance for production apps.
+
 ## 🌐 Project Details
 
 **GitHub Repository:** [github.com/SamurAIGPT/ai-tryon](https://github.com/SamurAIGPT/ai-tryon)
